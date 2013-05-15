@@ -1,0 +1,25 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+.background {
+	background: #0000FF;
+	height: 100%;
+	width: 100%;
+}
+
+.player {
+	position: absolute;
+	background: #FFF;
+	height: 30px;
+	width: 30px;
+	top: 0;
+	left: 0;
+	border-radius: 15px;
+}
