@@ -1,6 +1,6 @@
 !function() {
 
-	function EntityWrapper(config) {
+	function Entity(config) {
 		this.config = config
 
 		// Instantiate the sprite if there is one
@@ -9,7 +9,7 @@
 		}
 	}
 
-	EntityWrapper.prototype = {
+	Entity.prototype = {
 
 		draw: function() {
 			if (this.config.draw) {
@@ -21,36 +21,27 @@
 		 * Moves an entity by X and Y
 		 */
 		move: function(x, y) {
-			this.sprite.x = this.sprite._x + x
-			this.sprite.y = this.sprite._y + y
+			this.sprite.moveTo(this.sprite._x + x, this.sprite._y + y)
 		},
 
 		/**
 		 * Moves an entity to the X/Y coordinates
 		 */
 		moveTo: function(x, y) {
-			this.sprite.x = x
-			this.sprite.y = y
+			this.sprite.moveTo(x, y)
 		}
 	}
 
 
-	function Entity() {
-
-	}
-
-	Entity.prototype = {
+	engine.entity = {
 
 		create: function(config) {
-			var entityWrapper = new EntityWrapper(config)
+			var entityWrapper = new Entity(config)
 			engine.manager.add(entityWrapper)
 
 			if (config.init) {
 				config.init.apply(entityWrapper)
 			}
 		}
-
 	}
-
-	engine.entity = new Entity()
 }()

@@ -4,7 +4,11 @@ engine.layer.create({
 
 engine.sprite.create({
 	id: 'myPlayerArt',
-	classes: 'player'
+	classes: 'player',
+	steps: {
+		left: 7,
+		right: 7
+	}
 })
 
 engine.entity.create({
@@ -19,6 +23,7 @@ engine.entity.create({
 	draw: function() {
 		if (this.headingTo) {
 			this.moveTo(this.headingTo[0], this.headingTo[1])
+			this.headingTo = false
 		}
 	}
 })

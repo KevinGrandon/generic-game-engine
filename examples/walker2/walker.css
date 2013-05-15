@@ -1,0 +1,33 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+.background {
+	background: #0000FF;
+	height: 100%;
+	width: 100%;
+}
+
+.player {
+	position: absolute;
+	height: 300px;
+	width: 202px;
+	top: -50px;
+	left: -100px;
+
+	background-image: url(img/running_guy.png);
+}
+
+.player.step-left-1, .player.step-right-1 { background-position: -202px 0; }
+.player.step-left-2, .player.step-right-2 { background-position: -404px 0; }
+.player.step-left-3, .player.step-right-3 { background-position: -606px 0; }
+.player.step-left-4, .player.step-right-4 { background-position: -808px 0; }
+.player.step-left-5, .player.step-right-5 { background-position: 0 -300px; }
+.player.step-left-6, .player.step-right-6 { background-position: -202px -300px; }
+.player.step-left-7, .player.step-right-7 { background-position: -404px -300px; }
