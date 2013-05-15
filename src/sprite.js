@@ -12,19 +12,25 @@
 	Sprite.prototype = {
 
 		set x(x) {
-			this._node.style.left = x + 'px'
 			this._x = x
+			this.update()
 		},
 
 		set y(y) {
-			this._node.style.top = y + 'px'
 			this._y = y
+			this.update()
 		},
 
 		init: function() {
 			this._node = document.createElement('div')
 			this._node.className = this.config.classes
 			document.body.appendChild(this._node)
+		},
+
+		update: function() {
+			var unit = 'px'
+			this._node.style.transition = 'transform 1s'
+			this._node.style[engine.browserTransform] = 'translate(' + this._x + unit + ', ' + this._y + unit + ')'
 		}
 	}
 

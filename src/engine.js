@@ -58,5 +58,23 @@ window.engine = {
 			this.frameSpacing = currentTick - this.last
 			this.last = currentTick
 		}
-	}
+	},
+
+	browserTransform: function() {
+		var properties = [
+			'transform',
+			'WebkitTransform',
+			'msTransform',
+			'MozTransform',
+			'OTransform'
+		]
+
+		var p
+		while (prop = properties.shift()) {
+		    if (typeof document.body.style[prop] != 'undefined') {
+		        return prop
+		    }
+		}
+		return false
+	}()
 }
