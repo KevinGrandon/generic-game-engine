@@ -3,8 +3,8 @@
 	function Sprite(config) {
 		this.config = config
 
-		this._x = 0
-		this._y = 0
+		this._x = config.x || 0
+		this._y = config.y || 0
 
 		this.init()
 	}
@@ -25,18 +25,25 @@
 				dir = 'left'
 			}
 
+			var dx = x - this._x
+			var dy = y - this._y
+
+			var distance = Math.sqrt( (dx*dx)+(dy*dy) );
+
 			this._x = x
 			this._y = y
-			this.update(dir)
+			this.update(dir, distance)
 		},
 
 		init: function() {
 			this._node = document.createElement('div')
 			this._node.className = this.config.classes
 			document.body.appendChild(this._node)
+
+			this._node.style[engine.browserTransform] = 'translate(' + this._x + 'px, ' + this._y + 'px)'
 		},
 
-		update: function(stepDir) {
+		update: function(stepDir, distance) {
 
 			var scaleProp = ''
 
@@ -45,9 +52,14 @@
 				this.lastStepDir = stepDir
 			}
 
-			//this.stepDistance += 
+			this.stepDistance += distance
 
-			if (this.config.steps && this.config.steps[stepDir]) {
+			var perStep = 10
+			if (this.config.steps && this.config.steps[stepDir] && this.stepDistance > perStep) {
+
+				// Reset step distance
+				this.stepDistance = 0
+
 				var nextStep
 
 				if (stepDir !== this.lastStepDir || this.lastStepCount === this.config.steps[stepDir])
@@ -60,16 +72,14 @@
 
 				this.lastStepDir = stepDir
 				this.lastStepCount = nextStep
+			}
 
-				if (stepDir == 'right') {
-					scaleProp = ' scaleX(-1)'
-				}
+			if (this.lastStepDir == 'right') {
+				scaleProp = ' scaleX(-1)'
 			}
 
 			// Handle transform CSS injection
 			var unit = 'px'
-			// Todo: Dynamic lookup of transition/transform
-			this._node.style.transition = 'transform 1s'
 			this._node.style[engine.browserTransform] = 'translate(' + this._x + unit + ', ' + this._y + unit + ')' + scaleProp
 
 		}
